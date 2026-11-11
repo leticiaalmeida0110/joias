@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Entradas de Produtos</title>
+</head>
+<body style="font-family: Arial; background: #f2f5f9;">
+<header style="background: #174a35; color: white; padding: 25px; text-align: center;">
+    <h1>Entradas de Produtos</h1>
+</header>
+<main style="margin: 35px;">
+    <a href="/">Voltar ao menu principal</a>
+    <h2>Lista de Entradas</h2>
+    <table width="100%" border="1" cellpadding="12" style="background: white; border-collapse: collapse;">
+        <tr style="background: #174a35; color: white;">
+            <th>Produto</th><th>Fornecedor</th>
+            <th>Quantidade</th><th>Data da Entrada</th>
+            <th>Valor da Compra</th>
+        </tr>
+        {% for item in dados %}
+        <tr>
+            <td>{{ item.produto }}</td>
+            <td>{{ item.fornecedor }}</td>
+            <td>{{ item.quantidade }}</td>
+            <td>{{ item.data_entrada }}</td>
+            <td>R$ {{ item.valor_compra }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5">Nenhuma entrada cadastrada.</td></tr>
+        {% endfor %}
+    </table>
+</main>
+</body>
+</html>

@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Vendas</title>
+</head>
+<body style="font-family: Arial; background: #f2f5f9;">
+<header style="background: #174a35; color: white; padding: 25px; text-align: center;">
+    <h1>Vendas</h1>
+</header>
+<main style="margin: 35px;">
+    <a href="/">Voltar ao menu principal</a>
+    <h2>Lista de Vendas</h2>
+    <table width="100%" border="1" cellpadding="12" style="background: white; border-collapse: collapse;">
+        <tr style="background: #174a35; color: white;">
+            <th>Código</th><th>Data da Venda</th>
+            <th>Cliente</th><th>Valor Total</th>
+        </tr>
+        {% for item in dados %}
+        <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.data_venda }}</td>
+            <td>{{ item.cliente }}</td>
+            <td>R$ {{ item.valor_total }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">Nenhuma venda cadastrada.</td></tr>
+        {% endfor %}
+    </table>
+</main>
+</body>
+</html>

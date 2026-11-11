@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Tipos de Produtos</title>
+</head>
+<body style="font-family: Arial; background: #f2f5f9;">
+<header style="background: #174a35; color: white; padding: 25px; text-align: center;">
+    <h1>Tipos de Produtos</h1>
+</header>
+<main style="margin: 35px;">
+    <a href="/">Voltar ao menu principal</a>
+    <h2>Lista de Tipos de Produtos</h2>
+    <table width="100%" border="1" cellpadding="12" style="background: white; border-collapse: collapse;">
+        <tr style="background: #174a35; color: white;">
+            <th>Nome</th>
+        </tr>
+        {% for item in dados %}
+        <tr><td>{{ item.nome }}</td></tr>
+        {% empty %}
+        <tr><td>Nenhum tipo cadastrado.</td></tr>
+        {% endfor %}
+    </table>
+</main>
+</body>
+</html>

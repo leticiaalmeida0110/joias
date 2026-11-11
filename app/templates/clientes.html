@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Clientes</title>
+</head>
+<body style="font-family: Arial; background: #f2f5f9;">
+<header style="background: #174a35; color: white; padding: 25px; text-align: center;">
+    <h1>Clientes</h1>
+</header>
+<main style="margin: 35px;">
+    <a href="/">Voltar ao menu principal</a>
+    <h2>Lista de Clientes</h2>
+    <table width="100%" border="1" cellpadding="10" style="background: white; border-collapse: collapse;">
+        <tr style="background: #174a35; color: white;">
+            <th>Nome</th><th>CPF</th><th>Data de Nascimento</th>
+            <th>Email</th><th>Telefone</th><th>Endereço</th><th>Cidade</th>
+        </tr>
+        {% for item in dados %}
+        <tr>
+            <td>{{ item.nome }}</td>
+            <td>{{ item.cpf }}</td>
+            <td>{{ item.data_nasc|default:"-" }}</td>
+            <td>{{ item.email|default:"-" }}</td>
+            <td>{{ item.telefone }}</td>
+            <td>{{ item.endereco }}</td>
+            <td>{{ item.cidade }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="7">Nenhum cliente cadastrado.</td></tr>
+        {% endfor %}
+    </table>
+</main>
+</body>
+</html>
