@@ -3,20 +3,90 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Itens de Venda/title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Itens de Venda</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f5f9;
+            color: #263238;
+            margin: 0;
+        }
+
+        header {
+            background: #174a35;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        main {
+            margin: 35px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #174a35;
+            color: white;
+        }
+
+        a {
+            color: #174a35;
+            font-weight: bold;
+        }
+
+        .adicionar {
+            display: inline-block;
+            background: #198754;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-bottom: 15px;
+        }
+
+        .adicionar:hover {
+            background: #146c43;
+        }
+    </style>
 </head>
-<body style="font-family: Arial; background: #f2f5f9;">
-<header style="background: #174a35; color: white; padding: 25px; text-align: center;">
+
+<body>
+
+<header>
     <h1>Itens de Venda</h1>
 </header>
-<main style="margin: 35px;">
+
+<main>
+
     <a href="/">Voltar ao menu principal</a>
+
     <h2>Lista de Itens de Venda</h2>
-    <table width="100%" border="1" cellpadding="12" style="background: white; border-collapse: collapse;">
-        <tr style="background: #174a35; color: white;">
-            <th>Venda</th><th>Produto</th>
-            <th>Quantidade</th><th>Valor Unitário</th>
+
+    <a class="adicionar" href="{% url 'adicionar_item_venda' %}">
+        + Adicionar item de venda
+    </a>
+
+    <table>
+        <tr>
+            <th>Venda</th>
+            <th>Produto</th>
+            <th>Quantidade</th>
+            <th>Valor Unitário</th>
         </tr>
+
         {% for item in dados %}
         <tr>
             <td>{{ item.venda }}</td>
@@ -24,10 +94,15 @@
             <td>{{ item.quantidade }}</td>
             <td>R$ {{ item.valor_unitario }}</td>
         </tr>
+
         {% empty %}
-        <tr><td colspan="4">Nenhum item de venda cadastrado.</td></tr>
+        <tr>
+            <td colspan="4">Nenhum item de venda cadastrado.</td>
+        </tr>
         {% endfor %}
     </table>
+
 </main>
+
 </body>
 </html>

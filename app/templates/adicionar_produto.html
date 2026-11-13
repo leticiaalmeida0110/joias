@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Adicionar Produto</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f5f9;
+            color: #263238;
+            margin: 0;
+        }
+
+        header {
+            background: #174a35;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 35px auto;
+            padding: 25px;
+            background: white;
+            border-radius: 8px;
+        }
+
+        form p {
+            margin-bottom: 18px;
+        }
+
+        input, select, textarea {
+            padding: 9px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input:not([type="checkbox"]),
+        textarea {
+            width: 95%;
+        }
+
+        button {
+            background: #198754;
+            color: white;
+            padding: 12px 22px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .cancelar {
+            color: #174a35;
+            margin-left: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Adicionar Produto</h1>
+</header>
+
+<main>
+
+    <a href="{% url 'produtos' %}">Voltar para produtos</a>
+
+    <h2>Cadastro de Produto</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">Salvar produto</button>
+
+        <a class="cancelar" href="{% url 'produtos' %}">
+            Cancelar
+        </a>
+    </form>
+
+</main>
+
+</body>
+</html>

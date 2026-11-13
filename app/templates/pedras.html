@@ -4,6 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Pedras</title>
+    <style>
+        .adicionar {
+            display: inline-block;
+            background: #198754;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-bottom: 15px;
+        }
+    
+        .adicionar:hover {
+            background: #146c43;
+        }
+    </style>
 </head>
 <body style="font-family: Arial; background: #f2f5f9;">
 <header style="background: #174a35; color: white; padding: 25px; text-align: center;">
@@ -12,6 +27,9 @@
 <main style="margin: 35px;">
     <a href="/">Voltar ao menu principal</a>
     <h2>Lista de Pedras</h2>
+    <a class="adicionar" href="{% url 'adicionar_pedra' %}">
+        + Adicionar pedra
+    </a>
     <table width="100%" border="1" cellpadding="12" style="background: white; border-collapse: collapse;">
         <tr style="background: #174a35; color: white;">
             <th>Nome</th><th>Cor</th><th>Tipo</th>

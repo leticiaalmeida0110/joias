@@ -1,4 +1,4 @@
-
+<!--
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -46,5 +46,129 @@
         {% endfor %}
     </table>
 </main>
+</body>
+</html>
+-->
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Produtos</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f5f9;
+            color: #263238;
+            margin: 0;
+        }
+
+        header {
+            background: #174a35;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 35px auto;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #174a35;
+            color: white;
+        }
+
+        a {
+            color: #174a35;
+            font-weight: bold;
+        }
+
+        .adicionar {
+            display: inline-block;
+            background: #198754;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-bottom: 15px;
+        }
+
+        .adicionar:hover {
+            background: #146c43;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Produtos</h1>
+</header>
+
+<main>
+
+    <a href="/">Voltar ao menu principal</a>
+
+    <h2>Lista de Produtos</h2>
+
+    <a class="adicionar" href="{% url 'adicionar_produto' %}">
+        + Adicionar produto
+    </a>
+
+    <table>
+
+        <tr>
+            <th>Nome</th>
+            <th>Valor</th>
+            <th>Quantidade</th>
+            <th>Tipo</th>
+            <th>Material</th>
+            <th>Possui Pedra</th>
+            <th>Tamanho do Anel</th>
+            <th>Comprimento (cm)</th>
+        </tr>
+
+        {% for item in dados %}
+
+        <tr>
+            <td>{{ item.nome }}</td>
+            <td>R$ {{ item.valor }}</td>
+            <td>{{ item.quantidade }}</td>
+            <td>{{ item.tipo }}</td>
+            <td>{{ item.material }}</td>
+            <td>{{ item.possui_pedra|yesno:"Sim,Não" }}</td>
+            <td>{{ item.tamanho_anel|default:"-" }}</td>
+            <td>{{ item.comprimento_cm|default:"-" }}</td>
+        </tr>
+
+        {% empty %}
+
+        <tr>
+            <td colspan="8">Nenhum produto cadastrado.</td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</main>
+
 </body>
 </html>
