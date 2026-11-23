@@ -7,6 +7,8 @@ from .forms import ProdutoForm
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
 from .forms import *
+from django.shortcuts import get_object_or_404
+from django.contrib import messages
 
 # RF01 - Gerenciar produtos
 class ProdutoView(View):
@@ -211,4 +213,82 @@ class PedraAdicionarView(CadastroBaseView):
     form_class = PedraForm
     success_url = reverse_lazy('pedras')
     extra_context = {'titulo': 'Adicionar pedra'}
+
+
+# RF14 - Adicionar produtos ao carrinho
+class AdicionarCarrinhoView(View):
+
+    def post(self, request, pk, *args, **kwargs):
+
+        produto = get_object_or_404(Produto, pk=pk)
+
+        carrinho = request.session.get('carrinho', {})
+
+        produto_id = str(produto.id)
+
+        if produto_id in carrinho:
+            carrinho[produto_id] += 1
+        else:
+            carrinho[produto_id] = 1
+
+        request.session['carrinho'] = carrinho
+
+        messages.success(
+            request,
+            f'{produto.nome} foi adicionado ao carrinho!'
+        )
+
+        return redirect('produtos')
+
+
+# RF15 - Visualizar carrinho
+class CarrinhoView(View):
+
+    def get(self, request, *args, **kwargs):
+
+        carrinho = request.session.get('carrinho', {})
+
+        itens = []
+        total = 0
+
+        for produto_id, quantidade in carrinho.items():
+
+            produto = get_object_or_404(Produto, pk=produto_id)
+
+            subtotal = produto.valor * quantidade
+
+            itens.append({
+                'produto': produto,
+                'quantidade': quantidade,
+                'subtotal': subtotal
+            })
+
+            total += subtotal
+
+        return render(request, 'carrinho.html', {
+            'itens': itens,
+            'total': total
+        })
+
+# RF16 - Remover produtos do carrinho
+class RemoverCarrinhoView(View):
+
+    def post(self, request, pk, *args, **kwargs):
+
+        carrinho = request.session.get('carrinho', {})
+
+        produto_id = str(pk)
+
+        if produto_id in carrinho:
+            del carrinho[produto_id]
+
+            request.session['carrinho'] = carrinho
+
+            messages.success(
+                request,
+                'Produto removido do carrinho!'
+            )
+
+        return redirect('carrinho')
+
 

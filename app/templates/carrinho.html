@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Meu Carrinho</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f5f9;
+            color: #263238;
+            margin: 0;
+        }
+
+        header {
+            background: #174a35;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 35px auto;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #174a35;
+            color: white;
+        }
+
+        a {
+            color: #174a35;
+            font-weight: bold;
+        }
+
+        .remover {
+            background: #dc3545;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .remover:hover {
+            background: #bb2d3b;
+        }
+
+        .mensagem {
+            background: #d1e7dd;
+            color: #0f5132;
+            padding: 12px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .remover {
+            background: #dc3545;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+.remover:hover {
+    background: #bb2d3b;
+}
+
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Meu Carrinho</h1>
+</header>
+
+<main>
+
+    <a href="{% url 'produtos' %}">Continuar comprando</a>
+
+    <h2>Produtos adicionados</h2>
+
+    <!-- Mensagens de confirmação -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="mensagem">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if itens %}
+
+    <table>
+
+        <tr>
+            <th>Produto</th>
+            <th>Quantidade</th>
+            <th>Valor unitário</th>
+            <th>Subtotal</th>
+            <th>Ação</th>
+        </tr>
+
+        {% for item in itens %}
+
+        <tr>
+            <td>{{ item.produto.nome }}</td>
+            <td>{{ item.quantidade }}</td>
+            <td>R$ {{ item.produto.valor }}</td>
+            <td>R$ {{ item.subtotal }}</td>
+
+            <td>
+                <form method="POST"
+                      action="{% url 'remover_carrinho' item.produto.id %}">
+                    {% csrf_token %}
+
+                    <button type="submit" class="remover">
+                        Remover
+                    </button>
+                </form>
+            </td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    <h3>Total: R$ {{ total }}</h3>
+
+    {% else %}
+
+        <p>Seu carrinho está vazio!</p>
+
+    {% endif %}
+
+    <br>
+
+    <a href="{% url 'produtos' %}">Voltar aos produtos</a>
+
+</main>
+
+</body>
+</html>

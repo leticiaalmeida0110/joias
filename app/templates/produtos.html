@@ -113,6 +113,28 @@
         .adicionar:hover {
             background: #146c43;
         }
+
+        .carrinho {
+            background: #198754;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .carrinho:hover {
+            background: #146c43;
+        }
+
+        .mensagem {
+            background: #d1e7dd;
+            color: #0f5132;
+            padding: 12px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
     </style>
 </head>
 
@@ -127,6 +149,15 @@
     <a href="/">Voltar ao menu principal</a>
 
     <h2>Lista de Produtos</h2>
+
+    <!-- Mensagem de confirmação -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="mensagem">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
 
     <a class="adicionar" href="{% url 'adicionar_produto' %}">
         + Adicionar produto
@@ -143,6 +174,7 @@
             <th>Possui Pedra</th>
             <th>Tamanho do Anel</th>
             <th>Comprimento (cm)</th>
+            <th>Carrinho</th>
         </tr>
 
         {% for item in dados %}
@@ -156,17 +188,32 @@
             <td>{{ item.possui_pedra|yesno:"Sim,Não" }}</td>
             <td>{{ item.tamanho_anel|default:"-" }}</td>
             <td>{{ item.comprimento_cm|default:"-" }}</td>
+
+            <td>
+                <form method="POST" action="{% url 'adicionar_carrinho' item.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="carrinho">
+                        Adicionar ao carrinho
+                    </button>
+                </form>
+            </td>
         </tr>
 
         {% empty %}
 
         <tr>
-            <td colspan="8">Nenhum produto cadastrado.</td>
+            <td colspan="9">Nenhum produto cadastrado.</td>
         </tr>
 
         {% endfor %}
 
     </table>
+
+    <br>
+
+    <a href="{% url 'carrinho' %}">
+        Ver meu carrinho
+    </a>
 
 </main>
 

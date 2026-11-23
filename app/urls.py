@@ -52,4 +52,16 @@ urlpatterns = [
     # Pedras
     path('pedras/', PedraView.as_view(), name='pedras'),
     path('pedras/adicionar/', PedraAdicionarView.as_view(), name='adicionar_pedra'),
+
+    path('carrinho/', CarrinhoView.as_view(), name='carrinho'),
+
+    path('adicionar-carrinho/<int:pk>/',
+     AdicionarCarrinhoView.as_view(),
+     name='adicionar_carrinho'),
+
+    path(
+    'remover-carrinho/<int:pk>/',
+    RemoverCarrinhoView.as_view(),
+    name='remover_carrinho'
+),
 ]
