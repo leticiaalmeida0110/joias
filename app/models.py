@@ -32,6 +32,10 @@ class TipoProduto(models.Model):
 class Material(models.Model):
     nome = models.CharField(max_length=100)
 
+    class Meta:
+        verbose_name = "Material"
+        verbose_name_plural = "Materiais"
+
     def __str__(self):
         return self.nome
 
